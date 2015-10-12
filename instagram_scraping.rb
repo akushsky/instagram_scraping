@@ -15,7 +15,7 @@ require 'browse_helpers'
 
 username = ARGV[0].chomp
 hash_tag = ARGV[1].chomp
-comment  = ARGV[2].chomp
+#comment  = ARGV[2].chomp
 
 puts "Email: #{username}"
 puts "Hash Tag: #{hash_tag}"
@@ -47,7 +47,7 @@ sleep(2)
 i = 1
 next_post_button = true
 while next_post_button
-  puts "going to post #{i}"
+  puts "[" + DateTime.now.strftime("%H:%M") + "]" + " going to post #{i}"
 
   like_heart = $app.explore_tags.likes.first
 
@@ -56,13 +56,13 @@ while next_post_button
   else
     like_heart.click
 
-    comment_input = $app.explore_tags.comments.first
-    if comment_input.nil?
-      puts "...no comment area found"
-    else
-      comment_input.set "#{comment}\n"
-      puts "...comment posted"
-    end
+#    comment_input = $app.explore_tags.comments.first
+#    if comment_input.nil?
+#      puts "...no comment area found"
+#    else
+#      comment_input.set "#{comment}\n"
+#      puts "...comment posted"
+#    end
   end
 
   next_post_button = $app.explore_tags.next_post
@@ -74,4 +74,7 @@ while next_post_button
     sleep(2)
   end
 
+  if i % 100 == 0
+    sleep(300)
+  end
 end

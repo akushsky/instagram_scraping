@@ -41,6 +41,3 @@ DEPENDENCIES
   selenium-webdriver
   settingslogic
   site_prism
-
-BUNDLED WITH
-   1.10.6
