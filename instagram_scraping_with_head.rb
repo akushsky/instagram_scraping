@@ -1,54 +1,10 @@
 require 'dotenv'
 Dotenv.load
 
-require "capybara"
-require "capybara-webkit"
-
 puts "Using proxy: #{ENV['INSTAGRAM_SCRAPING_PROXY_HOST']}"
 
-Capybara::Webkit.configure do |config|
-  # Enable debug mode. Prints a log of everything the driver is doing.
-  #config.debug = true
-
-  # By default, requests to outside domains (anything besides localhost) will
-  # result in a warning. Several methods allow you to change this behavior.
-
-  # Silently return an empty 200 response for any requests to unknown URLs.
-  # config.block_unknown_urls
-
-  # Allow pages to make requests to any URL without issuing a warning.
-  config.allow_unknown_urls
-
-  # Allow a specific domain without issuing a warning.
-  # config.allow_url("example.com")
-
-  # Allow a specific URL and path without issuing a warning.
-  # config.allow_url("example.com/some/path")
-
-  # Wildcards are allowed in URL expressions.
-  # config.allow_url("*.example.com")
-
-  # Silently return an empty 200 response for any requests to the given URL.
-  # config.block_url("example.com")
-
-  # Timeout if requests take longer than 5 seconds
-  config.timeout = 60
-
-  # Don't raise errors when SSL certificates can't be validated
-  config.ignore_ssl_errors
-
-  # Don't load images
-  config.skip_image_loading
-
-  # Use a proxy
-  config.use_proxy(
-      host: ENV['INSTAGRAM_SCRAPING_PROXY_HOST'],
-      port: ENV['INSTAGRAM_SCRAPING_PROXY_PORT'],
-      user: ENV['INSTAGRAM_SCRAPING_PROXY_USERNAME'],
-      pass: ENV['INSTAGRAM_SCRAPING_PROXY_PASSWORD']
-  )
-end
-
+require "capybara"
+require 'selenium/webdriver'
 
 require 'capybara/dsl'
 require 'site_prism'
@@ -90,7 +46,21 @@ end
 
 puts "Comments to be used: #{comments.inspect}" unless comments.nil?
 
-Capybara.default_driver = :webkit
+Capybara.register_driver :firefox_with_proxy do |app|
+
+  proxy = "#{ENV['INSTAGRAM_SCRAPING_PROXY_HOST']}:#{ENV['INSTAGRAM_SCRAPING_PROXY_PORT']}"
+  profile = Selenium::WebDriver::Firefox::Profile.new
+  profile.proxy = Selenium::WebDriver::Proxy.new(
+      :http           => proxy,
+      :ssl            => proxy,
+      :socks_username => ENV['INSTAGRAM_SCRAPING_PROXY_USERNAME'],
+      :socks_password => ENV['INSTAGRAM_SCRAPING_PROXY_PASSWORD']
+  )
+
+  Capybara::Selenium::Driver.new(app, :profile => profile)
+end
+
+Capybara.default_driver = :firefox_with_proxy
 
 $app = PageObjects::Application.new
 
@@ -111,7 +81,7 @@ i = 1
 next_post_button = true
 comments_index = 0
 while next_post_button
-  puts "[" + DateTime.now.strftime("%H:%M") + "]" + " going to post #{i}"
+  puts "going to post #{i}"
 
   like_heart = $app.explore_tags.likes.first
 
@@ -143,7 +113,4 @@ while next_post_button
     sleep(2)
   end
 
-  if i % 100 == 0
-    sleep(300)
-  end
 end
