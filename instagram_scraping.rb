@@ -64,7 +64,7 @@ hash_tags.each { |hash_tag|
   j = 1
   next_post_button = true
   while next_post_button
-    puts "[#{DateTime.now.strftime("%H:%M")}]" + " going to post #{i}"
+    puts "[#{Time.now.strftime("%H:%M")}]" + " going to post #{i}"
 
     like_heart = $app.explore_tags.likes.first
 
@@ -88,6 +88,10 @@ hash_tags.each { |hash_tag|
 
     if j == 10
       next_post_button = false
+
+      # Write info about current tag likes at all
+      File.open("logs/#{Time.now.strftime("%d-%m-%Y")}.log", 'a') { |file| file.puts("[##{hash_tag}] - #{i} likes") }
+
       next
     end
 
@@ -100,10 +104,11 @@ hash_tags.each { |hash_tag|
       sleep(2)
     end
 
-    sleeping_time = DateTime.now + 2700
-    puts "Sleeping until #{sleeping_time.strftime("%H:%M")}"
     if i % 150 == 0
-      sleep(2700)
+      sleeping_time = Time.now + 45*60
+      puts "Sleeping until #{sleeping_time.strftime("%H:%M")}"
+
+      sleep(45*60)
     end
   end
 }
