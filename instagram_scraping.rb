@@ -86,7 +86,8 @@ hash_tags.each { |hash_tag|
   #    end
     end
 
-    if j == 10
+    # TODO: Rewrite, not 3000, but check days on page
+    if j == 10 || i > 3000
       next_post_button = false
 
       # Write info about current tag likes at all
