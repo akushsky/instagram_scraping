@@ -1,6 +1,6 @@
 defaults: &defaults
-  instagram_root_url: 'https://instagram.com'
-  instagram_login_url: 'https://instagram.com/accounts/login'
+  instagram_root_url: 'https://www.instagram.com'
+  instagram_login_url: 'https://www.instagram.com/accounts/login'
 
 development:
   <<: *defaults

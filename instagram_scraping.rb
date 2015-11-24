@@ -40,6 +40,17 @@ end
 
 puts "Email: #{username}"
 
+Capybara.register_driver :firefox_bin do |app|
+
+  require 'selenium/webdriver'
+  Selenium::WebDriver::Firefox::Binary.path = "/usr/bin/firefox-bin"
+
+  Capybara::Selenium::Driver.new(app, :browser => :firefox)
+end
+
+Capybara.default_driver = :firefox_bin
+
+
 $app = PageObjects::Application.new
 
 $app.instagram.load
@@ -79,7 +90,7 @@ hash_tags.each { |hash_tag|
 
   #    comment_input = $app.explore_tags.comments.first
   #    if comment_input.nil?
-  #      puts "...no comment area found"
+  #      puts "...no comment area found"<
   #    else
   #      comment_input.set "#{comment}\n"
   #      puts "...comment posted"
@@ -92,6 +103,13 @@ hash_tags.each { |hash_tag|
 
       # Write info about current tag likes at all
       File.open("logs/#{Time.now.strftime("%d-%m-%Y")}.log", 'a') { |file| file.puts("[##{hash_tag}] - #{i} likes") }
+
+      # TODO: Move to function
+      sleeping_time = Time.now + 45*60
+      puts "Sleeping until #{sleeping_time.strftime("%H:%M")}"
+
+      sleep(45*60)
+
 
       next
     end

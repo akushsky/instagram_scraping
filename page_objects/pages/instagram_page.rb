@@ -3,9 +3,11 @@ module PageObjects
     class InstagramPage < SitePrism::Page
       set_url Settings.instagram_login_url
 
-      element :username, '#lfFieldInputUsername'
-      element :password, '#lfFieldInputPassword'
-      element :login,    "button[data-reactid='.0.0.1.0.1.3'"
+      element :username, "input[data-reactid='.0.0.0.0.1.2.0.0']"
+#'#lfFieldInputUsername'
+      element :password, "input[data-reactid='.0.0.0.0.1.2.1.0']"
+#'#lfFieldInputPassword'
+      element :login,    "button[data-reactid='.0.0.0.0.1.2.2']"
 
       ### Id of old button on main page
       #'.0.1.0.1.0.1.0.1.3'"
