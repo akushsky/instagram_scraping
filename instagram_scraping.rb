@@ -123,7 +123,7 @@ hash_tags.each { |hash_tag|
       sleep(2)
     end
 
-    if i % 150 == 0
+    if i % 100 == 0
       sleeping_time = Time.now + 45*60
       puts "Sleeping until #{sleeping_time.strftime("%H:%M")}"
 
