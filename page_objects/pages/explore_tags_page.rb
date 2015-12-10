@@ -3,7 +3,7 @@ module PageObjects
     class ExploreTagsPage < SitePrism::Page
       set_url "#{Settings.instagram_root_url}/explore/tags{/hash_tag}/"
 
-      elements :posts, "a[class='t79 i49']"
+      elements :posts, "a[class='t89 i59']"
 #'a.-cx-PRIVATE-PostsGridItem__root.-cx-PRIVATE-PostsGrid__item'
       elements :likes,  'a.coreSpriteHeartOpen'
       elements :comment_forms, 'form.-cx-PRIVATE-PostInfo__commentCreator'
