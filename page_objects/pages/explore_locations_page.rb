@@ -1,7 +1,7 @@
 module PageObjects
   module Pages
-    class ExploreTagsPage < SitePrism::Page
-      set_url "#{Settings.instagram_root_url}/explore/tags{/hash_tag}/"
+    class ExploreLocationsPage < SitePrism::Page
+      set_url "#{Settings.instagram_root_url}/explore/locations{/location_id}/"
 
       elements :posts, "a[class='_8mlbc _t5r8b']"
 #'a.-cx-PRIVATE-PostsGridItem__root.-cx-PRIVATE-PostsGrid__item'

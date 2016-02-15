@@ -10,6 +10,7 @@ $LOAD_PATH << File.expand_path("..", __FILE__)
 require 'settings'
 require 'page_objects/pages/instagram_page'
 require 'page_objects/pages/explore_tags_page'
+require 'page_objects/pages/explore_locations_page'
 require 'page_objects/application'
 require 'browse_helpers'
 
@@ -43,7 +44,7 @@ puts "Email: #{username}"
 Capybara.register_driver :firefox_bin do |app|
 
   require 'selenium/webdriver'
-  Selenium::WebDriver::Firefox::Binary.path = "/usr/bin/firefox-bin"
+  Selenium::WebDriver::Firefox::Binary.path = "/usr/bin/firefox"
 
   Capybara::Selenium::Driver.new(app, :browser => :firefox)
 end
@@ -59,9 +60,16 @@ login(username, password)
 
 hash_tags.each { |hash_tag|
 
-  puts "Hash Tag: #{hash_tag}"
+  if hash_tag.is_i?
+    puts "Location: #{hash_tag}" #TODO
 
-  any_results = search(hash_tag)
+    any_results = search_location(hash_tag)
+  else
+
+    puts "Hash Tag: #{hash_tag}"
+
+    any_results = search_tag(hash_tag)
+  end
 
   unless any_results
     puts "No results"

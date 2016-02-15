@@ -11,5 +11,9 @@ module PageObjects
     def explore_tags
       @pages[:explore_tags] ||= PageObjects::Pages::ExploreTagsPage.new
     end
+
+    def explore_locations
+      @pages[:explore_locations] ||= PageObjects::Pages::ExploreLocationsPage.new
+    end
   end
 end
