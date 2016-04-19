@@ -7,7 +7,7 @@ module PageObjects
 #'#lfFieldInputUsername'
       element :password, "input[data-reactid='.0.0.0.0.1.2.1.0']"
 #'#lfFieldInputPassword'
-      element :login,    "button[data-reactid='.0.0.0.0.1.2.2']"
+      element :login,    "button[data-reactid='.0.0.0.0.1.2.2.0']"
 
       ### Id of old button on main page
       #'.0.1.0.1.0.1.0.1.3'"
