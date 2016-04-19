@@ -113,7 +113,7 @@ hash_tags.each { |hash_tag|
       File.open("logs/#{Time.now.strftime("%d-%m-%Y")}.log", 'a') { |file| file.puts("[##{hash_tag}] - #{i} likes") }
 
       # TODO: Move to function
-      sleeping_time = Time.now + 45*60
+      sleeping_time = Time.now + 55*60
       puts "Sleeping until #{sleeping_time.strftime("%H:%M")}"
 
       sleep(45*60)
@@ -131,11 +131,11 @@ hash_tags.each { |hash_tag|
       sleep(2)
     end
 
-    if i % 100 == 0
-      sleeping_time = Time.now + 45*60
+    if i % 80 == 0
+      sleeping_time = Time.now + 55*60
       puts "Sleeping until #{sleeping_time.strftime("%H:%M")}"
 
-      sleep(45*60)
+      sleep(55*60)
     end
   end
 }
