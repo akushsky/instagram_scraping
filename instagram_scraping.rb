@@ -97,6 +97,8 @@ hash_tags.each { |hash_tag|
       puts "Sleeping until #{sleeping_time.strftime("%H:%M")}"
 
       sleep(45*60)
+
+      next
     else
       last_post_url = $app.explore_tags.current_url
     end
