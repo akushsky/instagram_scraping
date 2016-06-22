@@ -5,7 +5,7 @@ module PageObjects
 
       elements :posts, "a[class='_8mlbc _vbtk2 _t5r8b']"
 #'a.-cx-PRIVATE-PostsGridItem__root.-cx-PRIVATE-PostsGrid__item'
-      elements :likes,  'span.whiteoutSpriteHeartOpen'
+      elements :likes,  'span.coreSpriteHeartOpen'
       elements :comment_forms, 'form.-cx-PRIVATE-PostInfo__commentCreator'
       elements :comments, ".-cx-PRIVATE-PostInfo__commentCreatorInput"
 
